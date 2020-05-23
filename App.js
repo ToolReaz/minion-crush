@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
   Text,
+  Keyboard,
 } from "react-native";
 import * as Speech from "expo-speech";
 import { Ionicons } from "@expo/vector-icons";
@@ -45,25 +46,48 @@ export default class App extends React.Component {
     this.setState({ currAction: currAction % 4 });
   };
 
+  getResponse = (res) => {
+    if (typeof res === "string") {
+      return res;
+    } else {
+      const keys = Object.keys(res);
+      const percents = keys.map((x) => parseInt(x)).sort((a, b) => a - b);
+      const proba = Math.floor(Math.random() * 100);
+      let start = 0;
+      let end = 0;
+      for (let i in percents) {
+        end = end + percents[i];
+        if (proba >= start && proba < end) {
+          return res[percents[i]];
+        }
+        start = end;
+      }
+    }
+  };
+
   sendMsg = async () => {
     const { message, currAction } = this.state;
     const answeres = SENTENCES[this.ACTIONS[currAction]];
     const lowerMessage = message.toLocaleLowerCase();
     let response = null;
 
+    // Hide keyboard & remove text
+    Keyboard.dismiss();
+    this.setState({ message: "" });
+
     // Check exact match
-    for (let item in answeres.MATCH) {
-      if (item.input === lowerMessage) {
-        response = item.response;
+    for (let item of answeres.MATCH) {
+      if (item.input.toLocaleLowerCase() === lowerMessage) {
+        response = this.getResponse(item.response);
         break;
       }
     }
 
     // If no exact match found, look for partial
     if (!response) {
-      for (let item in answeres.CONTAIN) {
-        if (item.input === lowerMessage) {
-          response = item.response;
+      for (let item of answeres.CONTAIN) {
+        if (item.input.toLocaleLowerCase() === lowerMessage) {
+          response = this.getResponse(item.response);
           break;
         }
       }
@@ -93,13 +117,25 @@ export default class App extends React.Component {
         </View>
 
         <View style={styles.flexContainer}>
-          <Text>{this.state.response}</Text>
+          {this.state.response != "" && (
+            <Text style={styles.response}>{this.state.response}</Text>
+          )}
+          {this.state.response != "" && (
+            <Ionicons
+              style={styles.arrow}
+              name="ios-arrow-down"
+              size={32}
+              color={CONFIG.COLOR.PRIMARY}
+            />
+          )}
+
           <Image style={styles.image} source={require("./assets/robot.png")} />
 
           <TextInput
             style={styles.input}
             value={this.state.message}
             onChangeText={(message) => this.setState({ message })}
+            onSubmitEditing={this.sendMsg}
             returnKeyType="send"
             placeholder={t.INPUT_PLACEHOLDER}
             width="100%"
@@ -155,9 +191,23 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "90%",
     alignSelf: "center",
-    marginTop: 180,
+    marginTop: 120,
     flex: 1,
     alignItems: "center",
+  },
+
+  response: {
+    borderWidth: 3,
+    borderColor: CONFIG.COLOR.PRIMARY,
+    borderRadius: 5,
+    padding: 10,
+    textAlign: "center",
+  },
+
+  arrow: {
+    marginBottom: 30,
+    marginTop: -12,
+    paddingTop: 0,
   },
 
   input: {

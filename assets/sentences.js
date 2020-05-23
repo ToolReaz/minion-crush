@@ -15,6 +15,14 @@ export const SENTENCES = {
       { input: "key", response: "value" },
       { input: "foo", response: "bar" },
       { input: "hello world", response: "Hey ! What's up ?" },
+      {
+        input: "a",
+        response: {
+          20: "20%",
+          50: "60%",
+          30: "30%",
+        },
+      },
     ],
 
     CONTAIN: [{ input: "ahah", response: "Yeah it was fun !" }],
