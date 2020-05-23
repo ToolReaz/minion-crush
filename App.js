@@ -25,6 +25,9 @@ export default class App extends React.Component {
     response: "",
     currAction: 0,
     actions: ["Parler", "Nourrir", "Jouer", "Santé"],
+    FOOD: 100,
+    HUMOUR: 100,
+    HEALTH: 100,
   };
 
   send = () => {
@@ -67,9 +70,20 @@ export default class App extends React.Component {
     }
   };
 
+  updateStats = (stat, coef) => {
+    const { state } = this;
+    if (coef % 1 === 0) {
+      state[stat] += coef;
+    } else {
+      state[stat] *= coef;
+    }
+    this.setState(state);
+  };
+
   sendMsg = async () => {
     const { message, currAction } = this.state;
-    const answeres = SENTENCES[this.ACTIONS[currAction]];
+    const action = this.ACTIONS[currAction];
+    const answeres = SENTENCES[action];
     const lowerMessage = message.toLocaleLowerCase().trim();
     let response = null;
 
@@ -81,6 +95,7 @@ export default class App extends React.Component {
     for (let item of answeres.MATCH) {
       if (item.input.toLocaleLowerCase().trim() === lowerMessage) {
         response = this.getResponse(item.response);
+        if ("coef" in item) this.updateStats(action, item.coef);
         break;
       }
     }
@@ -90,6 +105,7 @@ export default class App extends React.Component {
       for (let item of answeres.CONTAIN) {
         if (item.input.toLocaleLowerCase().trim() === lowerMessage) {
           response = this.getResponse(item.response);
+          if ("coef" in item) this.updateStats(action, item.coef);
           break;
         }
       }
@@ -113,9 +129,9 @@ export default class App extends React.Component {
       <View style={styles.mainWindow}>
         <StatusBar visible={true} barStyle="default" />
         <View style={styles.statWrapper}>
-          <StatIndicator type="heal" />
-          <StatIndicator type="hunger" />
-          <StatIndicator type="humor" />
+          <StatIndicator type="heal" number={this.state.HEALTH} />
+          <StatIndicator type="hunger" number={this.state.FOOD} />
+          <StatIndicator type="humor" number={this.state.HUMOUR} />
         </View>
 
         <View style={styles.flexContainer}>

@@ -16,7 +16,7 @@ export default class StatIndicator extends Component {
             <Text style={styles.title}>
               <AntDesign name="heart" size={18} color="#FFF" /> {t.HEALTH}
             </Text>
-            <Text style={styles.num}>100%</Text>
+            <Text style={styles.num}>{this.props.number}%</Text>
           </View>
         );
         break;
@@ -42,7 +42,7 @@ export default class StatIndicator extends Component {
               />{" "}
               {t.HUNGER}
             </Text>
-            <Text style={styles.num}>100%</Text>
+            <Text style={styles.num}>{this.props.number}%</Text>
           </View>
         );
         break;
@@ -53,7 +53,7 @@ export default class StatIndicator extends Component {
             <Text style={styles.title}>
               <Entypo name="emoji-happy" size={18} color="#FFF" /> {t.HUMOR}
             </Text>
-            <Text style={styles.num}>100%</Text>
+        <Text style={styles.num}>{this.props.number}%</Text>
           </View>
         );
         break;
