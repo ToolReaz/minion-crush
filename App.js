@@ -103,7 +103,7 @@ export default class App extends React.Component {
     // If no exact match found, look for partial
     if (!response) {
       for (let item of answeres.CONTAIN) {
-        if (item.input.toLocaleLowerCase().trim() === lowerMessage) {
+        if (lowerMessage.includes(item.input.toLocaleLowerCase().trim())) {
           response = this.getResponse(item.response);
           if ("coef" in item) this.updateStats(action, item.coef);
           break;

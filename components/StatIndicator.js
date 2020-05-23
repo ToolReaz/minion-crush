@@ -5,6 +5,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { CONFIG } from "../assets/config";
 import { t } from "../assets/i18n";
+import { DarkerColor } from "../lib/darkerColor";
 
 export default class StatIndicator extends Component {
   render() {
@@ -28,7 +29,7 @@ export default class StatIndicator extends Component {
               styles.stat,
               {
                 backgroundColor: CONFIG.COLOR.PRIMARY,
-                borderColor: CONFIG.COLOR.SECONDARY,
+                borderColor: DarkerColor(CONFIG.COLOR.PRIMARY, -20),
                 borderRightWidth: 3,
                 borderLeftWidth: 3,
               },
@@ -53,7 +54,7 @@ export default class StatIndicator extends Component {
             <Text style={styles.title}>
               <Entypo name="emoji-happy" size={18} color="#FFF" /> {t.HUMOR}
             </Text>
-        <Text style={styles.num}>{this.props.number}%</Text>
+            <Text style={styles.num}>{this.props.number}%</Text>
           </View>
         );
         break;
