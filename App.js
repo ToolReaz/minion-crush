@@ -18,7 +18,7 @@ import GestureRecognizer from "react-native-swipe-gestures";
 import { SENTENCES } from "./assets/sentences";
 
 export default class App extends React.Component {
-  ACTIONS = ["SPEAK", "FOOD", "HUMOUR", "HEALTH"];
+  ACTIONS = ["SPEAK", "FOOD", "HUMOR", "HEALTH"];
 
   state = {
     message: "",
@@ -26,7 +26,7 @@ export default class App extends React.Component {
     currAction: 0,
     actions: ["Parler", "Nourrir", "Jouer", "Santé"],
     FOOD: 100,
-    HUMOUR: 100,
+    HUMOR: 100,
     HEALTH: 100,
   };
 
@@ -121,7 +121,7 @@ export default class App extends React.Component {
 
     await Speech.stop();
     Speech.speak(response);
-    this.setState({ response });
+    this.setState({ response, message: "" });
   };
 
   render() {
@@ -131,7 +131,7 @@ export default class App extends React.Component {
         <View style={styles.statWrapper}>
           <StatIndicator type="heal" number={this.state.HEALTH} />
           <StatIndicator type="hunger" number={this.state.FOOD} />
-          <StatIndicator type="humor" number={this.state.HUMOUR} />
+          <StatIndicator type="humor" number={this.state.HUMOR} />
         </View>
 
         <View style={styles.flexContainer}>

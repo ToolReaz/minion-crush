@@ -39,23 +39,17 @@ export const SENTENCES = {
   },
 
   FOOD: {
-    MATCH: [
-      { input: "key", response: "value" },
-      { input: "foo", response: "bar" },
-      { input: "hello world", response: "Hey ! What's up ?" },
-    ],
+    MATCH: [],
 
-    CONTAIN: [{ input: "ahah", response: "Yeah it was fun !" }],
+    CONTAIN: [
+      { input: "pizza", response: "Miam ! I love pizza :)", coef: +25 },
+    ],
   },
 
   HUMOR: {
-    MATCH: [
-      { input: "key", response: "value" },
-      { input: "foo", response: "bar" },
-      { input: "hello world", response: "Hey ! What's up ?" },
-    ],
+    MATCH: [{ input: "Bouh", response: "You scared me :(", coef: 0.8 }],
 
-    CONTAIN: [{ input: "ahah", response: "Yeah it was fun !" }],
+    CONTAIN: [],
   },
 
   DEFAULTS: [
