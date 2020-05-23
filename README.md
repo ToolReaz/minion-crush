@@ -13,6 +13,10 @@
 
 ### Clone repository
 
+```bash
+git clone git@github.com:ToolReaz/minion-crush.git
+```
+
 ### Edit language
 
 ### Build for Android & IOS
