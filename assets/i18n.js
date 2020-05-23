@@ -1,5 +1,7 @@
-export default t = {
+export const t = {
   HEALTH: "Santé",
   HUNGER: "Faim",
-  HAPPYNESS: "Humeur",
+  HUMOR: "Humeur",
+
+  INPUT_PLACEHOLDER: "Ecrivez ici"
 };

@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { CONFIG } from "../assets/config";
+import { t } from "../assets/i18n";
 
 export default class StatIndicator extends Component {
   render() {
@@ -13,7 +14,7 @@ export default class StatIndicator extends Component {
         inner = (
           <View style={styles.stat}>
             <Text style={styles.title}>
-              <AntDesign name="heart" size={18} color="#FFF" /> Stanté
+              <AntDesign name="heart" size={18} color="#FFF" /> {t.HEALTH}
             </Text>
             <Text style={styles.num}>100%</Text>
           </View>
@@ -39,7 +40,7 @@ export default class StatIndicator extends Component {
                 size={20}
                 color="#FFF"
               />{" "}
-              Faim
+              {t.HUNGER}
             </Text>
             <Text style={styles.num}>100%</Text>
           </View>
@@ -50,7 +51,7 @@ export default class StatIndicator extends Component {
         inner = (
           <View style={styles.stat}>
             <Text style={styles.title}>
-              <Entypo name="emoji-happy" size={18} color="#FFF" /> Humeur
+              <Entypo name="emoji-happy" size={18} color="#FFF" /> {t.HUMOR}
             </Text>
             <Text style={styles.num}>100%</Text>
           </View>
