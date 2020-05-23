@@ -13,9 +13,10 @@ import * as Speech from "expo-speech";
 import { Ionicons } from "@expo/vector-icons";
 import StatIndicator from "./components/StatIndicator";
 import { CONFIG } from "./assets/config";
-import { t } from "./assets/i18n";
 import GestureRecognizer from "react-native-swipe-gestures";
 import { SENTENCES } from "./assets/sentences";
+
+const t = CONFIG.LANG;
 
 export default class App extends React.Component {
   ACTIONS = ["SPEAK", "FOOD", "HUMOR", "HEALTH"];

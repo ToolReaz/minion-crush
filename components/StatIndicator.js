@@ -4,8 +4,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { CONFIG } from "../assets/config";
-import { t } from "../assets/i18n";
 import { DarkerColor } from "../lib/darkerColor";
+
+const t = CONFIG.LANG;
 
 export default class StatIndicator extends Component {
   render() {
@@ -41,7 +42,7 @@ export default class StatIndicator extends Component {
                 size={20}
                 color="#FFF"
               />{" "}
-              {t.HUNGER}
+              {t.FOOD}
             </Text>
             <Text style={styles.num}>{Math.floor(this.props.number)}%</Text>
           </View>
