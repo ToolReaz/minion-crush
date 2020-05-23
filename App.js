@@ -49,6 +49,8 @@ export default class App extends React.Component {
   getResponse = (res) => {
     if (typeof res === "string") {
       return res;
+    } else if (Array.isArray(res)) {
+      return res[Math.floor(Math.random() * res.length)];
     } else {
       const keys = Object.keys(res);
       const percents = keys.map((x) => parseInt(x)).sort((a, b) => a - b);
@@ -68,7 +70,7 @@ export default class App extends React.Component {
   sendMsg = async () => {
     const { message, currAction } = this.state;
     const answeres = SENTENCES[this.ACTIONS[currAction]];
-    const lowerMessage = message.toLocaleLowerCase();
+    const lowerMessage = message.toLocaleLowerCase().trim();
     let response = null;
 
     // Hide keyboard & remove text
@@ -77,7 +79,7 @@ export default class App extends React.Component {
 
     // Check exact match
     for (let item of answeres.MATCH) {
-      if (item.input.toLocaleLowerCase() === lowerMessage) {
+      if (item.input.toLocaleLowerCase().trim() === lowerMessage) {
         response = this.getResponse(item.response);
         break;
       }
@@ -86,7 +88,7 @@ export default class App extends React.Component {
     // If no exact match found, look for partial
     if (!response) {
       for (let item of answeres.CONTAIN) {
-        if (item.input.toLocaleLowerCase() === lowerMessage) {
+        if (item.input.toLocaleLowerCase().trim() === lowerMessage) {
           response = this.getResponse(item.response);
           break;
         }
@@ -97,7 +99,7 @@ export default class App extends React.Component {
     if (!response) {
       response =
         SENTENCES.DEFAULTS[
-          Math.floor(Math.random() * Math.floor(SENTENCES.DEFAULTS.length))
+          Math.floor(Math.random() * SENTENCES.DEFAULTS.length)
         ];
     }
 

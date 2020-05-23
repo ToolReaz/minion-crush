@@ -15,6 +15,7 @@ export const SENTENCES = {
       { input: "key", response: "value" },
       { input: "foo", response: "bar" },
       { input: "hello world", response: "Hey ! What's up ?" },
+      { input: "array", response: ["index 1", "index 2", "index 3"] },
       {
         input: "a",
         response: {
@@ -30,12 +31,11 @@ export const SENTENCES = {
 
   HEALTH: {
     MATCH: [
-      { input: "key", response: "value" },
-      { input: "foo", response: "bar" },
-      { input: "hello world", response: "Hey ! What's up ?" },
+      { input: "hurt", response: "Ouch !", coef: -50 },
+      { input: "love", response: "Thanks <3", coef: +50 },
     ],
 
-    CONTAIN: [{ input: "ahah", response: "Yeah it was fun !" }],
+    CONTAIN: [{ input: "hug", response: "Come on !", coef: 1.2 }],
   },
 
   FOOD: {
