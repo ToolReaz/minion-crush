@@ -8,15 +8,20 @@ import {
   TextInput,
   Text,
 } from "react-native";
+import * as Speech from "expo-speech";
 import { Ionicons } from "@expo/vector-icons";
 import StatIndicator from "./components/StatIndicator";
 import { CONFIG } from "./assets/config";
 import { t } from "./assets/i18n";
 import GestureRecognizer from "react-native-swipe-gestures";
+import { SENTENCES } from "./assets/sentences";
 
 export default class App extends React.Component {
+  ACTIONS = ["SPEAK", "FOOD", "HUMOUR", "HEALTH"];
+
   state = {
     message: "",
+    response: "",
     currAction: 0,
     actions: ["Parler", "Nourrir", "Jouer", "Santé"],
   };
@@ -32,14 +37,49 @@ export default class App extends React.Component {
     let { currAction } = this.state;
     currAction++;
     this.setState({ currAction: currAction % 4 });
-    console.log("SWIPED LEFT");
   };
 
   swipeRight = () => {
     let { currAction } = this.state;
     currAction === 0 ? (currAction = 3) : currAction--;
     this.setState({ currAction: currAction % 4 });
-    console.log("SWIPED RIGHT");
+  };
+
+  sendMsg = async () => {
+    const { message, currAction } = this.state;
+    const answeres = SENTENCES[this.ACTIONS[currAction]];
+    const lowerMessage = message.toLocaleLowerCase();
+    let response = null;
+
+    // Check exact match
+    for (let item in answeres.MATCH) {
+      if (item.input === lowerMessage) {
+        response = item.response;
+        break;
+      }
+    }
+
+    // If no exact match found, look for partial
+    if (!response) {
+      for (let item in answeres.CONTAIN) {
+        if (item.input === lowerMessage) {
+          response = item.response;
+          break;
+        }
+      }
+    }
+
+    // If still no response, use a default one
+    if (!response) {
+      response =
+        SENTENCES.DEFAULTS[
+          Math.floor(Math.random() * Math.floor(SENTENCES.DEFAULTS.length))
+        ];
+    }
+
+    await Speech.stop();
+    Speech.speak(response);
+    this.setState({ response });
   };
 
   render() {
@@ -53,6 +93,7 @@ export default class App extends React.Component {
         </View>
 
         <View style={styles.flexContainer}>
+          <Text>{this.state.response}</Text>
           <Image style={styles.image} source={require("./assets/robot.png")} />
 
           <TextInput
@@ -69,10 +110,14 @@ export default class App extends React.Component {
             onSwipeRight={this.swipeRight}
           >
             <TouchableOpacity
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-              onPress={this.send}
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+              onPress={this.sendMsg}
             >
               <Ionicons
+                onPress={this.swipeRight}
                 style={{ lineHeight: 40, paddingLeft: 10 }}
                 name="ios-arrow-back"
                 size={24}
@@ -82,6 +127,7 @@ export default class App extends React.Component {
                 {this.state.actions[this.state.currAction]}
               </Text>
               <Ionicons
+                onPress={this.swipeLeft}
                 style={{ lineHeight: 40, paddingRight: 10 }}
                 name="ios-arrow-forward"
                 size={24}

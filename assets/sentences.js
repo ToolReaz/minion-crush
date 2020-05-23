@@ -10,11 +10,49 @@ CONTAIN answeres will be printed if the input contain the key
 */
 
 export const SENTENCES = {
-  MATCH: [
-    { key: "value" },
-    { foo: "bar" },
-    { "hello world": "Hey ! What's up ?" },
-  ],
+  SPEAK: {
+    MATCH: [
+      { input: "key", response: "value" },
+      { input: "foo", response: "bar" },
+      { input: "hello world", response: "Hey ! What's up ?" },
+    ],
 
-  CONTAIN: [{ ahah: "Yeah it was fun !" }],
+    CONTAIN: [{ input: "ahah", response: "Yeah it was fun !" }],
+  },
+
+  HEALTH: {
+    MATCH: [
+      { input: "key", response: "value" },
+      { input: "foo", response: "bar" },
+      { input: "hello world", response: "Hey ! What's up ?" },
+    ],
+
+    CONTAIN: [{ input: "ahah", response: "Yeah it was fun !" }],
+  },
+
+  FOOD: {
+    MATCH: [
+      { input: "key", response: "value" },
+      { input: "foo", response: "bar" },
+      { input: "hello world", response: "Hey ! What's up ?" },
+    ],
+
+    CONTAIN: [{ input: "ahah", response: "Yeah it was fun !" }],
+  },
+
+  HUMOR: {
+    MATCH: [
+      { input: "key", response: "value" },
+      { input: "foo", response: "bar" },
+      { input: "hello world", response: "Hey ! What's up ?" },
+    ],
+
+    CONTAIN: [{ input: "ahah", response: "Yeah it was fun !" }],
+  },
+
+  DEFAULTS: [
+    "Error 404",
+    "I didn't understand...",
+    "Sorry, can you repeat please ?",
+  ],
 };
